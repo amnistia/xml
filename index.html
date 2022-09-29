@@ -339,10 +339,7 @@ let xmlf = new Array;
 let inicio = new Array;
 let final = new Array;
 let desvio = new Array;
-let si = true;
-//let clave = "clave";
 let clave = prompt("Please enter your pass", "Harry Potter");
-//alert("eh");
 function relleno_rangos() {
 	
 	linea = new Array;
@@ -363,7 +360,7 @@ function relleno_rangos() {
 		//limpiar();
 		return;
 	}
-	/*if((si==true) && (textArea.value == "clave")){
+	/*if((si==true) && (textArea.value == "correcto")){
 		si=false;
 		efecto();
 		//alert ("Clave "+textArea.value+" correcta");
@@ -1103,7 +1100,7 @@ function myFunction(xml) {
   }
 }
 function iniciar() {
-	//document.oncontextmenu = function(){return false};
+	document.oncontextmenu = function(){return false};
 	rellena_listas();
 	//var hoy = new Date();
 	//c1 = hoy.getFullYear() + (hoy.getMonth() + 1).toString().padStart(2, 0);
