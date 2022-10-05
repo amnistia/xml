@@ -196,7 +196,7 @@ function relleno_ruta(e) {
     var tecla = e.code;
     //alert(e.code);
     if (text_ruta.length >= 9 && (tecla == "Enter" || tecla == "NumpadEnter")) {
-        fetch('gen_datos.php', {
+        fetch('http://es08s01325821t1.t0.inet/Entrada/xml/gen_datos.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -209,86 +209,6 @@ function relleno_ruta(e) {
 }
 document.getElementById("rutaId").addEventListener('keypress', relleno_ruta, false);
 
-</script>
-    <footer>
-    <!--?php
-    date_default_timezone_set('Europe/Madrid');
-    $dia = array("lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo");
-    if (file_exists("datos_consola.txt")) {
-        echo date("Y-m-d G:i ", filemtime("datos_consola.txt"));
-        echo 'Fichero con la configuracion del AS-BT<br>';
-    }
-    /*$indepe="gen1.zip";
-    if (file_exists($indepe)) {
-        echo date("Y-m-d G:i ", filemtime($indepe));
-        echo 'Versión indepe: <a href="javascript:downloadd()">'.$indepe.'</a>. Descargas: '.contadord().'<br>';
-    
-	?>
-	<a href="https://enriqueneg.github.io/xml/gen1.html" target="_blank">Web alternativa estática</a><br>}*/
-    $remote_host = (array_key_exists("REMOTE_HOST",$_SERVER)) ? $_SERVER["REMOTE_HOST"]:"¿?";
-    echo date("Y-m-d G:i", foldermtime(getcwd()))." Última actualización";
-    $total_archivos = count(glob('..\\trabajos\\{*.*}',GLOB_BRACE))-2;
-    echo ". Archivos generados: ".$total_archivos.'<br>';
-    echo date("Y-m-d G:i")." ".$dia[date("N")-1].", ".$remote_host.", eres el visitante # ".contador($remote_host).'<br>';
-    echo frase().'<br>';
-
-    function contador($remote_host)
-    {
-        $filename = "registro.txt"; //el archivo que contiene en numero
-		$dir = "..\\trabajos\\";  //   $dir = ".\\trabajos\\"
-        $path = $dir.$filename;
-        if (!is_dir($dir)) {   //activar este párrafo para version gen
-            mkdir($dir, 0777, true);
-        }
-        $f = fopen($path, "a");
-        if($f)
-        {
-            fwrite($f, date("Y-m-d h:i:sa")." ".$remote_host.PHP_EOL);
-            fclose($f);
-        }
-		$contador = count(file($path));
-        return $contador;
-    }
-    function contadord()
-    {
-        $filename = "regdesc.txt"; //el archivo que contiene en numero
-		$dir = "..\\trabajos\\";  //   $dir = ".\\trabajos\\"
-        $path = $dir.$filename;
-        if (file_exists($path)) {
-            $contadord = count(file($path));
-            return $contadord;
-        }
-    }
-    function frase()
-    {
-        $file = 'frases.txt';
-        if (file_exists($file)) {
-            $spl = new SplFileObject($file);
-            $spl->seek(PHP_INT_MAX);
-            $max = $spl->key();
-            $d=mt_rand(0,$max);
-            $spl->seek($d);
-            return $spl->current();
-        }
-    }
-    function foldermtime($dir) {
-        $foldermtime = 0;
-    
-        $flags = FilesystemIterator::SKIP_DOTS | FilesystemIterator::CURRENT_AS_FILEINFO;
-        $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir, $flags));
-    
-        while ($it->valid()) {
-            if (($filemtime = $it->current()->getMTime()) > $foldermtime) {
-                $foldermtime = $filemtime;
-            }
-            $it->next();
-        }
-    
-        return $foldermtime ?: false;
-    }
-	?-->
-    </footer>
-    <br>        
-	<!--img src="media/anuncio.png" width="640" height="auto" title="Anuncio"-->		
-    </body>
+	</script>
+</body>
 </html>
