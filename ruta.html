@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ruta</title>
+    <!--link rel="stylesheet" href="areas.css"-->
+    <link rel="icon" type="image/vnd.microsoft.icon" href="ruta.png" sizes="32x32">
+<style>
+* {
+    margin: 0px;
+    padding: 0px;
+}
+p1 {
+    font: bold 14px "Lucida Console", "Courier New", monospace;
+}
+p2 {
+    background-color: rgba(0, 255, 0, 0.3);
+}
+h1 {
+    font: bold 50px verdana, sans-serif;
+    display: inline-block;
+}
+h2 {font: bold 30px verdana, sans-serif;
+    display: inline-block;
+}
+span {
+	margin: 5px;
+    font: 14px verdana, sans-serif;
+}
+#cabecera {
+    position: fixed;
+    width:100%;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;    
+    background: #FFFB00;
+    background: linear-gradient(45deg, LightSalmon 10%, IndianRed 90%);
+    display: flex;
+    /*border-radius: 20px;
+    text-align: right;
+    border: 1px solid #999999;
+*/
+}
+#agrupar{
+    width:100%;
+    display: flex;
+    background: linear-gradient(45deg, lavender 10%, darkviolet 90%);
+    justify-content: center;
+}
+#form {
+    display: inline-block;
+    text-align: left;
+    margin-top: 1em;
+    margin-block-end: 1em;
+    background: #cdffb9;
+    border-radius: 20px;
+    padding: 10px;
+    border: 12px outset grey;
+}
+aside {
+    border-radius: 20px;
+	padding: 10px;
+    border: 12px outset grey;
+}
+footer {
+    padding: 3px;
+    /*border: 1px solid black;*/
+    border-radius: 5px;
+    font: italic 11px verdana, sans-serif;
+    width:630px;
+}
+time {
+    color: #999999;
+}
+figcaption {
+    font: italic 14px verdana, sans-serif;
+}
+textarea {
+    padding: 5px 5px;    
+    resize: none;
+    border-radius: 5px;
+    text-align: left;
+    font: 18px "Lucida Console", "Courier New", monospace;
+}
+button:hover{
+    background: Silver;
+}
+select:hover{
+    background: AliceBlue;
+}
+#rutaId{
+        font: 30px "Lucida Console", "Courier New", monospace;
+}    
+    
+#rutaId:hover{
+    background: AliceBlue;
+}    
+#NRNId:hover{
+    background: AliceBlue;
+}    
+textarea:hover{
+    background: AliceBlue;
+}    
+a {
+    color: Blue;
+    text-decoration: none;
+}
+/*input.input {
+      display:inline-block;
+  }*/
+table,
+th,
+td {
+    padding: 2px;
+    border: 1px solid black;
+    background-color: white;
+}
+button {
+    padding: 10px 10px;
+    font-size: 16px;
+    border-radius: 50px;
+}
+#borradoId{
+	float: right;
+}
+
+#operacionId {
+    padding: 3px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: left;
+	display:inline-block;
+}
+#preguntaId {
+    padding: 3px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: left;
+	display:inline-block;
+}
+#salvarId {
+    display: none;
+}
+#backupId {
+    display: none;
+}
+#tablaId{
+    display:flex;
+	
+}
+#panelId{
+    display:inline-block;
+    width:640px;
+}
+#rangosAreaId{
+    padding: 10px 10px;
+    /*background:white;*/
+    font: 11px "Lucida Console", "Courier New", monospace;
+    border-radius: 5px;
+    float:right;
+}
+#ResultadoId {
+    padding: 10px 10px;
+    background-image: url(gen_prefijos.png);
+    background-size: contain;
+    font: 14px "Lucida Console", "Courier New", monospace;
+    border-radius: 5px;
+}
+#columna{
+	    background: linear-gradient(45deg, black 10%, white 90%);
+}
+#tiempoId{
+	display:inline-block;
+}
+</style>
+<!--script src="ruta.js"></script-->
+</head>
+
+<body>
+    <header id="cabecera">
+		<img src="ruta.png" width="50" height="auto" title="Ruta">
+        <h1>Ruta</h1>
+		</header>
+    <br><br><br><br><br>
+    <div >
+        <h2> Ruta:</h2>
+        <input type="text" id="rutaId" name="ruta" size=10 title="CIBERUN-Equipamiento-Circuitos-Admin"><br>
+        <div id="ResultadoId" contenteditable="true"></div>
+    </div>
+<script>
+function relleno_ruta(e) {
+    var text_ruta = document.getElementById("rutaId").value.trim();
+    var tecla = e.code;
+    //alert(e.code);
+    if (text_ruta.length >= 9 && (tecla == "Enter" || tecla == "NumpadEnter")) {
+        fetch('gen_datos.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            body: "text=" + text_ruta
+        })
+            .then(response => response.text())
+            .then(data => document.getElementById("ResultadoId").innerHTML = data);
+    }
+}
+document.getElementById("rutaId").addEventListener('keypress', relleno_ruta, false);
+
+</script>
+    <footer>
+    <!--?php
+    date_default_timezone_set('Europe/Madrid');
+    $dia = array("lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo");
+    if (file_exists("datos_consola.txt")) {
+        echo date("Y-m-d G:i ", filemtime("datos_consola.txt"));
+        echo 'Fichero con la configuracion del AS-BT<br>';
+    }
+    /*$indepe="gen1.zip";
+    if (file_exists($indepe)) {
+        echo date("Y-m-d G:i ", filemtime($indepe));
+        echo 'Versión indepe: <a href="javascript:downloadd()">'.$indepe.'</a>. Descargas: '.contadord().'<br>';
+    
+	?>
+	<a href="https://enriqueneg.github.io/xml/gen1.html" target="_blank">Web alternativa estática</a><br>}*/
+    $remote_host = (array_key_exists("REMOTE_HOST",$_SERVER)) ? $_SERVER["REMOTE_HOST"]:"¿?";
+    echo date("Y-m-d G:i", foldermtime(getcwd()))." Última actualización";
+    $total_archivos = count(glob('..\\trabajos\\{*.*}',GLOB_BRACE))-2;
+    echo ". Archivos generados: ".$total_archivos.'<br>';
+    echo date("Y-m-d G:i")." ".$dia[date("N")-1].", ".$remote_host.", eres el visitante # ".contador($remote_host).'<br>';
+    echo frase().'<br>';
+
+    function contador($remote_host)
+    {
+        $filename = "registro.txt"; //el archivo que contiene en numero
+		$dir = "..\\trabajos\\";  //   $dir = ".\\trabajos\\"
+        $path = $dir.$filename;
+        if (!is_dir($dir)) {   //activar este párrafo para version gen
+            mkdir($dir, 0777, true);
+        }
+        $f = fopen($path, "a");
+        if($f)
+        {
+            fwrite($f, date("Y-m-d h:i:sa")." ".$remote_host.PHP_EOL);
+            fclose($f);
+        }
+		$contador = count(file($path));
+        return $contador;
+    }
+    function contadord()
+    {
+        $filename = "regdesc.txt"; //el archivo que contiene en numero
+		$dir = "..\\trabajos\\";  //   $dir = ".\\trabajos\\"
+        $path = $dir.$filename;
+        if (file_exists($path)) {
+            $contadord = count(file($path));
+            return $contadord;
+        }
+    }
+    function frase()
+    {
+        $file = 'frases.txt';
+        if (file_exists($file)) {
+            $spl = new SplFileObject($file);
+            $spl->seek(PHP_INT_MAX);
+            $max = $spl->key();
+            $d=mt_rand(0,$max);
+            $spl->seek($d);
+            return $spl->current();
+        }
+    }
+    function foldermtime($dir) {
+        $foldermtime = 0;
+    
+        $flags = FilesystemIterator::SKIP_DOTS | FilesystemIterator::CURRENT_AS_FILEINFO;
+        $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir, $flags));
+    
+        while ($it->valid()) {
+            if (($filemtime = $it->current()->getMTime()) > $foldermtime) {
+                $foldermtime = $filemtime;
+            }
+            $it->next();
+        }
+    
+        return $foldermtime ?: false;
+    }
+	?-->
+    </footer>
+    <br>        
+	<!--img src="media/anuncio.png" width="640" height="auto" title="Anuncio"-->		
+    </body>
+</html>
