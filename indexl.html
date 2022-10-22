@@ -331,6 +331,10 @@ table{
 }
 </style>
 <script>
+function decrypt (text){
+decrypted = CryptoJS.AES.decrypt(text,clave).toString(CryptoJS.enc.Utf8);
+	return decrypted;
+}
 let clave = prompt("Please enter your pass", "Harry Potter");
 alert (decrypt("U2FsdGVkX1/kt1ayC9+esJUP7xVB9uR/wt546ADL6rQ=");
 if (decrypt("U2FsdGVkX1/kt1ayC9+esJUP7xVB9uR/wt546ADL6rQ=") == "") window.close();
@@ -1073,10 +1077,6 @@ function rellena_listas() {
 	}
 	select.selectedIndex = 8;
 	cambia_nrn();*/
-}
-function decrypt (text){
-decrypted = CryptoJS.AES.decrypt(text,clave).toString(CryptoJS.enc.Utf8);
-	return decrypted;
 }
 function rellenaXML(){
 	var xhttp = new XMLHttpRequest();
